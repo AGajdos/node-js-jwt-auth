@@ -56,4 +56,27 @@ app.get('/gyakorlatok_mell', (req, res) => {
   connection.end()    
 
 })
+app.get('/izomcsoport', (req, res) => {
+  var mysql = require('mysql')
+  var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'zarodolgozat'
+  })
+  
+  connection.connect()
+  
+  connection.query('SELECT * from izomcsoport', function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+
+    res.send(rows)
+  })
+  
+  
+  connection.end()    
+
+})
 };
