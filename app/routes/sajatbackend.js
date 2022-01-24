@@ -79,4 +79,31 @@ app.get('/izomcsoport', (req, res) => {
   connection.end()    
 
 })
+ 
+app.post('/torles', (req, res) => {
+  var mysql = require('mysql')
+  var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'zarodolgozat'
+  })
+  
+  connection.connect()
+  
+  connection.query('Delete from gyakorlatok where id_gyakorlatok= '+req.body.bevitel1, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
+
+    res.send(rows)
+  })
+  
+  
+  connection.end()    
+
+})
+
+
+
 };
