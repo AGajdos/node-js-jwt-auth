@@ -96,14 +96,60 @@ app.post('/torles', (req, res) => {
   
     console.log(rows)
 
-    res.send(rows)
+    res.send("Sikeres törlés")
   })
   
   
   connection.end()    
 
 })
+app.post('/torles2', (req, res) => {
+  var mysql = require('mysql')
+  var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'zarodolgozat'
+  })
+  
+  connection.connect()
+  
+  connection.query('Delete from izomcsoport where izom_id= '+req.body.bevitel1, function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log(rows)
 
+    res.send("Sikeres törlés")
+  })
+  
+  
+  connection.end()    
+
+})
+app.post('/kommentfelvitel', (req, res) => {
+  var mysql = require('mysql')
+  var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'zarodolgozat'
+  })
+  
+  connection.connect()
+  
+  let dt=new Date();
+  let teljesdat=dt.getFullYear()+"-"+  (dt.getMonth()+1)   +"-"+dt.getDate();
+  connection.query("INSERT INTO forum VALUES (NULL, '"+req.body.bevitel1+"', '"+req.body.bevitel2+"', '"+teljesdat+"') ", function (err, rows, fields) {
+    if (err) throw err
+  
+    console.log("Sikeres felvitel!")
+
+    res.send("Sikeres felvitel!")
+  })
+  
+  connection.end()    
+
+})  
 
 
 };
